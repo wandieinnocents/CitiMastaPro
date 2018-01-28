@@ -1,0 +1,60 @@
+<!-- <ion-header  >
+  <ion-navbar>
+    <ion-buttons end *ngIf="showSkip">
+
+      <button ion-button (click)="startApp()" color="skippcolor">{{ 'TUTORIAL_SKIP_BUTTON' | translate}}</button>
+
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce color="secondary">
+ -->
+
+
+
+
+
+  <ion-slides  color="skippcolor" pager="true" dir="{{dir}}" (ionSlideWillChange)="onSlideChangeStart($event)">
+    <!-- custom slide here -->
+    <ion-slide style="background-color:rgb(30, 68, 52);color:#ffffff;">
+      <img src="assets/img/stream1.png" class="slide-image" />
+
+      <h2  class="slide-title">{{ 'TUTORIAL_SLIDE1_TITLE' | translate }}</h2>
+      <p style="color:#ffffff;">Stream Live Traffic Updates</p>
+
+
+    </ion-slide>
+
+    <ion-slide style="background-color:rgb(14, 155, 95);color:#ffffff;">
+      <img src="assets/img/maps.png" class="slide-image" />
+
+      <h2  class="slide-title">Google Maps</h2>
+      <p style="color:#ffffff;">Navigate Using Google Maps</p>
+
+
+    </ion-slide>
+
+
+
+
+
+
+    <ion-slide *ngFor="let slide of slides" style="background-color:rgb(151, 50, 61);color:white;">
+      <img [src]="slide.image" class="slide-image" />
+      <h2 class="slide-title" [innerHTML]="slide.title" style="color:#ffffff;"></h2>
+      <p [innerHTML]="slide.description" style="color:white;"></p>
+    </ion-slide>
+    <ion-slide style="background-color:#e36323;color:#ffffff;">
+      <img src="assets/img/lauch.png" class="slide-image" />
+      <h2  class="slide-title">{{ 'TUTORIAL_SLIDE4_TITLE' | translate }}</h2>
+      <!-- <button style="color:#ffffff;" ion-button icon-end large clear (click)="startApp()">
+        {{ 'TUTORIAL_CONTINUE_BUTTON' | translate }}
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button> -->
+      <button ion-button round outline color="welcomewhite" (click)="startApp()">{{ 'TUTORIAL_CONTINUE_BUTTON' | translate }}<ion-icon name="arrow-forward"></ion-icon></button>
+    </ion-slide>
+  </ion-slides>
+
+
+<!-- </ion-content> -->

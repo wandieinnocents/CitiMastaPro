@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar color="appcolor">
+    <button ion-button menuToggle >
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>{{ 'SEARCH_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Search places"></ion-searchbar>
+  <ion-list>
+    <button ion-item (click)="openItem(item)" *ngFor="let item of currentItems">
+      <ion-avatar item-start>
+        <img [src]="item.profilePic" />
+      </ion-avatar>
+      <h2>{{item.name}}</h2>
+      <p>{{item.about}}</p>
+      <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
+    </button>
+  </ion-list>
+
+  <ion-fab right bottom>
+      <button ion-fab color="danger"><ion-icon name="share"></ion-icon></button>
+      <ion-fab-list side="top">
+        <button ion-fab color="primary"> <ion-icon name="logo-facebook"></ion-icon></button>
+        <button ion-fab color="primary"><ion-icon name="logo-twitter"></ion-icon></button>
+        <button ion-fab color="danger"><ion-icon name="logo-googleplus"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
+</ion-content>
