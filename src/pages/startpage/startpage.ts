@@ -98,15 +98,21 @@ presentToast() {
 //     }, 1000);
 //   }
 
+
+
+
+
+
+  //
   loadMap(){
 
- this.geolocation.getCurrentPosition().then((position) => {
+      this.geolocation.getCurrentPosition().then((position) => {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
       let mapOptions = {
         center: latLng,
-        zoom: 16,
+        zoom: 4,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
@@ -150,18 +156,29 @@ addInfoWindow(marker, content){
 
    		//initialise map
    		var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+          draggable: true,
+          map: map,
+          panel: document.getElementById('right-panel')
+        });
+
+
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 41.85, lng: -87.65}
         });
         directionsDisplay.setMap(map);
+        directionsDisplay.addListener('directions_changed', function() {
+          computeTotalDistance(directionsDisplay.getDirections());
+        });
 
+      
         //end of init map function
         directionsService.route({
           origin: this.Start,
           destination: this.End,
           travelMode: 'DRIVING',
+          avoidTolls: true,
         }, function(response, status) {
           if (status === 'OK') {
             directionsDisplay.setDirections(response);
@@ -169,7 +186,11 @@ addInfoWindow(marker, content){
             window.alert('Directions request failed due to ' + status);
           }
         });
+
+
       }
+
+
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad StartpagePage');
