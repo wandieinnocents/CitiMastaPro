@@ -1,8 +1,8 @@
-# The Ionic Super Starter 🎮
+### CITI MASTA PROJECT - HACKSHADE TECHS 
 
-_Note: the Ionic Super Starter requires Ionic CLI 3._
+You must have ionic 3 CLI to run this project...
 
-<img src="assets/img/contact.JPG" width="400" />
+<img src="../assets/img/contact.JPG" width="400" />
 
 
 ### Api
