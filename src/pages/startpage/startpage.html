@@ -10,9 +10,6 @@
   <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>WHERE AM I!</button>
-    </ion-buttons>
 
 
 
@@ -33,22 +30,20 @@
 
 <ion-grid>
 <ion-row >
-<ion-col col-4>
-<ion-input type="text" id="origin-input" floating placeholder="From? " [(ngModel)]="Start" [(ngModel)]="title" name="title"></ion-input>
-</ion-col>
 
-<ion-col col-4>
+<ion-col>
+<ion-input type="text" id="destination-input" floating placeholder="To " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input>
 <ion-input type="text" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
 
 </ion-col>
-<ion-col col-2>
-<button ion-button full  (click)="calculateAndDisplayRoute()">GO</button>
 
-</ion-col>
-<ion-col col-2>
-      <button ion-button icon-only (click)="presentToast()" (click)="saveTrip()"><ion-icon name="add-circle" ></ion-icon></button>
 
-</ion-col>
+<button ion-button full  (click)="calculateAndDisplayRoute()">Destination</button>
+
+
+      <!-- <button ion-button icon-only (click)="presentToast()" (click)="saveTrip()"><ion-icon name="add-circle" ></ion-icon></button> -->
+
+
 </ion-row>
 
 </ion-grid>

@@ -156,7 +156,7 @@ addInfoWindow(marker, content){
 
    		//initialise map
       //street view variable panaroma
-    
+
    		var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer({
           draggable: true,
@@ -171,7 +171,7 @@ addInfoWindow(marker, content){
         });
         directionsDisplay.setMap(map);
         directionsDisplay.addListener('directions_changed', function() {
-          computeTotalDistance(directionsDisplay.getDirections());
+          // computeTotalDistance(directionsDisplay.getDirections());
         });
 
         //show street view
