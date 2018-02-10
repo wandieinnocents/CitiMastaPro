@@ -1,6 +1,14 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EnterPage } from '../pages/enter/enter';
+import { LoggedinPage } from '../pages/loggedin/loggedin';
+//import { TabsPage } from '../pages/tabs/tabs';
+import { ModalPage } from '../pages/modal/modal';
+
+
+// import { PeopleupdatesPage } from '../pages/peopleupdates/peopleupdates';
+import { RegisterPage } from '../pages/register/register';
 import { Camera } from '@ionic-native/camera';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,10 +33,24 @@ import { HttpModule } from '@angular/http';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { TrafficupdatePage } from '../pages/trafficupdate/trafficupdate';
+import { AutoPage } from '../pages/auto/auto';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 
 
+
+
+//firebse config
+export const firebaseAuth = {
+  apiKey: "AIzaSyD0gjFq99Cb5CXzhOxDoc2WZpM29ZxTBag",
+  authDomain: "trafficapp-3cee2.firebaseapp.com",
+  databaseURL: "https://trafficapp-3cee2.firebaseio.com",
+  projectId: "trafficapp-3cee2",
+  storageBucket: "trafficapp-3cee2.appspot.com",
+  messagingSenderId: "69157020230"
+};
 
 
 
@@ -58,7 +80,13 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp,
-    TrafficupdatePage
+    TrafficupdatePage,
+    AutoPage,
+    EnterPage,
+    LoggedinPage
+    //ModalPage,
+    // PeopleupdatesPage,
+  //TabsPage
 
   ],
   imports: [
@@ -73,12 +101,21 @@ export function provideSettings(storage: Storage) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseAuth),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TrafficupdatePage
+    TrafficupdatePage,
+    AutoPage,
+    EnterPage,
+    LoggedinPage
+    //ModalPage,
+    // PeopleupdatesPage,
+
+   //TabsPage
 
   ],
   providers: [

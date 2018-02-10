@@ -15,7 +15,8 @@
 
 
 
-    <ion-title>Traffic Application</ion-title>
+    <ion-title>Citi Masta</ion-title>
+
 
 
   </ion-navbar>
@@ -25,20 +26,29 @@
 
 <ion-content >
 
+
+
 <!-- design of homepage -->
 <ion-card >
-
-<ion-grid>
+  <!-- <ion-list>
+    <ion-item>
+      <ion-input (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="Where are you going?" [(ngModel)]="End"></ion-input>
+    </ion-item>
+  </ion-list> -->
+ <ion-grid>
 <ion-row >
 
 <ion-col>
-<ion-input type="text" id="destination-input" floating placeholder="To " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input>
-<ion-input type="text" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
+<ion-input  (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="From"  id="destination-input" floating placeholder="From " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input>
+
+</ion-col>
+
+<ion-col>
+  <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
 
 </ion-col>
 
 
-<button ion-button full  (click)="calculateAndDisplayRoute()">Destination</button>
 
 
       <!-- <button ion-button icon-only (click)="presentToast()" (click)="saveTrip()"><ion-icon name="add-circle" ></ion-icon></button> -->
@@ -61,13 +71,16 @@
 
 <!-- end of homepage design-->
 
+<ion-fab bottom left>
+    <button ion-fab color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
 
-<ion-fab right bottom>
-    <button ion-fab color="danger"><ion-icon name="share"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab color="secondary"> <ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab color="secondary"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab color="secondary"><ion-icon name="logo-googleplus"></ion-icon></button>
-    </ion-fab-list>
   </ion-fab>
+
+
+
+<!-- <ion-fab bottom right>
+    <button ion-fab color="appcolor" (click)="openModal()" (click)="calculateAndDisplayRoute()" ><ion-icon name="walk"></ion-icon></button>
+
+  </ion-fab> -->
+
 </ion-content>

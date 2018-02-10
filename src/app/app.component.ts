@@ -16,10 +16,13 @@ import { StartpagePage } from '../pages/startpage/startpage';
 import { ContactPage } from '../pages/contact/contact';
 import { FeedbackPage } from '../pages/feedback/feedback';
 import { TripsPage } from '../pages/trips/trips';
+import { PeopleupdatesPage } from '../pages/peopleupdates/peopleupdates';
+
 
 import { Push, PushObject, PushOptions} from '@ionic-native/push';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { BackgroundMode } from '@ionic-native/background-mode';
+
 
 
 
@@ -65,6 +68,7 @@ export class MyApp {
   pages: any[] = [
       { title: 'Home', component: 'TabsPage', icon: 'home'},
       { title: 'Traffic Updates', component: 'UserupdatesPage', icon: 'car'},
+      { title: 'User Updates', component: 'PeopleupdatesPage', icon: 'contact'},
       // { title: 'My Trips', component: 'SearchPage', icon: 'pin'},
       { title: 'Incidents Nearby', component: 'CodePage', icon: 'warning'},
       // { title: 'Notifications', component: 'CardsPage', icon: 'notifications'},

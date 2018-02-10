@@ -1,0 +1,84 @@
+
+<ion-header>
+
+  <ion-navbar color="appcolor">
+  <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>User Updates</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content  padding class="">
+
+<ion-list>
+  
+  <ion-item>
+    <ion-label floating>Road</ion-label>
+    <ion-input type="text" [(ngModel)]="road"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Starting</ion-label>
+    <ion-input type="text" [(ngModel)]="starting_at"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Ending </ion-label>
+    <ion-input type="text" [(ngModel)]="ending_at"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Description</ion-label>
+    <ion-input type="text" [(ngModel)]="description"></ion-input>
+  </ion-item>
+
+ <ion-item>
+   <ion-label>Status</ion-label>
+  <ion-select [(ngModel)]="status">
+
+    <ion-option value="RED">High</ion-option>
+    <ion-option value="ORANGE">Moderate</ion-option>
+    <ion-option value="GREEN">Clear</ion-option>
+  </ion-select>
+</ion-item>
+
+
+
+
+
+
+
+  <ion-grid>
+  <ion-row>
+  <ion-col col-2>
+  <button ion-button icon-only><ion-icon name="car" ></ion-icon></button>
+  </ion-col>
+  <ion-col col-10>
+  <button ion-button type="submit" block color="appcolor" (click)="postUserUpdate()" (click)="presentToast()" >Submit</button>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
+
+</ion-list>
+
+
+
+
+
+
+
+
+
+
+      <ion-fab right bottom>
+          <button ion-fab color="danger"><ion-icon name="share"></ion-icon></button>
+          <ion-fab-list side="top">
+            <button ion-fab (click)="shareInfo()" color="primary"> <ion-icon name="share"></ion-icon></button>
+            <!-- <button ion-fab (click)="goHome()" color="primary"> <ion-icon name="home"></ion-icon></button> -->
+            <!-- <button ion-fab color="primary"><ion-icon name="logo-twitter"></ion-icon></button>
+            <button ion-fab color="danger"><ion-icon name="logo-googleplus"></ion-icon></button> -->
+          </ion-fab-list>
+        </ion-fab>
+</ion-content>

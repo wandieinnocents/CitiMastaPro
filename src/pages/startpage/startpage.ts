@@ -1,5 +1,9 @@
 import { Component,ViewChild, ElementRef} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { AutoPage } from '../auto/auto';
+import { TabsPage } from '../tabs/tabs';
+import { ModalPage } from '../modal/modal';
+
 
 import { Tab1Root } from '../pages';
 import { Tab2Root } from '../pages';
@@ -22,18 +26,123 @@ declare var google;
   templateUrl: 'startpage.html',
 })
 export class StartpagePage {
-	Start: any;
-	End: any;
+  latLng: string;
+
+   address:any;
+	Start: any ;
+	End: any = '';
+  MyLocation: any;
   data = {}
 
   //adding current location declarations
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation: Geolocation,public toastCtrl: ToastController,public http: Http) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public geolocation: Geolocation,
+    private modalCtrl: ModalController,
+    public toastCtrl: ToastController,
 
+    public http: Http) {
+
+      //pick current user mail
+
+
+    //autocomplete
+    this.address = {
+      place: ''
+    };
 
   }
+
+
+  //modal  page
+
+  openModal(){
+    var data = { message : 'hello world' };
+    var modalPage = this.modalCtrl.create('ModalPage',data);
+    var modalPage = this.modalCtrl.create('ModalPage');
+    modalPage.present();
+
+   }
+
+
+
+//map re-generation
+ // calculateAndDisplayRoute(directionsService, directionsDisplay) {
+ //
+ //         var directionsService = new google.maps.DirectionsService;
+ //          var directionsDisplay = new google.maps.DirectionsRenderer;
+ //          var map = new google.maps.Map(document.getElementById('map'), {
+ //           zoom: 7,
+ //           center: {lat: 41.85, lng: -87.65}
+ //          });
+ //        directionsDisplay.setMap(map);
+ //        //geo location here
+ //
+ //        if (navigator.geolocation) {
+ //          navigator.geolocation.getCurrentPosition(function(position) {
+ //            var pos = {
+ //              lat: position.coords.latitude,
+ //              lng: position.coords.longitude
+ //            };
+ //
+ //            // infoWindow.setPosition(pos);
+ //            // infoWindow.setContent('Location found.');
+ //            // infoWindow.open(map);
+ //            map.setCenter(pos);
+ //            //declare current location
+ //            this.MyLocation = new google.maps.latLng(pos);
+ //          }, function() {
+ //          //  handleLocationError(true, infoWindow, map.getCenter());
+ //          console.log("locatin found");
+ //          });
+ //        } else {
+ //          // Browser doesn't support Geolocation
+ //        //  handleLocationError(false, infoWindow, map.getCenter());
+ //        }
+ //
+ //
+ //        directionsService.route({
+ //          origin:this.MyLocation,
+ //          destination: this.End,
+ //          travelMode: 'DRIVING'
+ //        }, function(response, status) {
+ //          if (status === 'OK') {
+ //            directionsDisplay.setDirections(response);
+ //          } else {
+ //            window.alert('Directions request failed due to ' + status);
+ //          }
+ //        });
+ //      }
+ //
+ //
+ //
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //modal autocomplete
+  showAddressModal () {
+    let modal = this.modalCtrl.create(AutoPage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.address.place = data;
+    });
+    modal.present();
+  }
+
+
 
 //toast
 presentToast() {
@@ -112,11 +221,13 @@ presentToast() {
 
       let mapOptions = {
         center: latLng,
-        zoom: 4,
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+
 
     }, (err) => {
       console.log(err);
@@ -124,31 +235,31 @@ presentToast() {
 
   }
 //adding markers
-addMarker(){
-
-  let marker = new google.maps.Marker({
-    map: this.map,
-    animation: google.maps.Animation.DROP,
-    position: this.map.getCenter()
-  });
-
-  let content = "<h4>Welcome to Citi Master, This is where you are,!</h4>";
-
-  this.addInfoWindow(marker, content);
-
-}
+// addMarker(){
+//
+//   let marker = new google.maps.Marker({
+//     map: this.map,
+//     animation: google.maps.Animation.DROP,
+//     position: this.map.getCenter()
+//   });
+//
+//   let content = "<h4>Welcome to Citi Master, This is where you are,!</h4>";
+//
+//   this.addInfoWindow(marker, content);
+//
+// }
 //adding informaiton winoow when a user taps on the marker
-addInfoWindow(marker, content){
-
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
-
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.open(this.map, marker);
-  });
-
-}
+// addInfoWindow(marker, content){
+//
+//   let infoWindow = new google.maps.InfoWindow({
+//     content: content
+//   });
+//
+//   google.maps.event.addListener(marker, 'click', () => {
+//     infoWindow.open(this.map, marker);
+//   });
+//
+// }
 
 
   //calculate route function
@@ -169,6 +280,7 @@ addInfoWindow(marker, content){
           zoom: 7,
           center: {lat: 41.85, lng: -87.65}
         });
+
         directionsDisplay.setMap(map);
         directionsDisplay.addListener('directions_changed', function() {
           // computeTotalDistance(directionsDisplay.getDirections());
@@ -194,11 +306,6 @@ addInfoWindow(marker, content){
 
       }
 
-
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad StartpagePage');
-  // }
 
 
 

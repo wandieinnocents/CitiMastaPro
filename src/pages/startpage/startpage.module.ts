@@ -5,6 +5,7 @@ import { StartpagePage } from './startpage';
 @NgModule({
   declarations: [
     StartpagePage,
+
   ],
   imports: [
     IonicPageModule.forChild(StartpagePage),
