@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
+import { TabsPage } from '../../pages/tabs/tabs';
 import { RegisterPage } from '../../pages/register/register';
+import { LoginverfyPage } from '../../pages/loginverfy/loginverfy';
+import { StartpagePage } from '../../pages/startpage/startpage';
 
 export interface Slide {
   title: string;
@@ -56,7 +59,7 @@ export class TutorialPage {
   //   });
   // }
   startApp() {
-    this.navCtrl.setRoot('RegisterPage', {}, {
+    this.navCtrl.setRoot('TabsPage', {}, {
       animate: true,
       direction: 'forward'
     });

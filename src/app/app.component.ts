@@ -67,12 +67,12 @@ export class MyApp {
 
   pages: any[] = [
       { title: 'Home', component: 'TabsPage', icon: 'home'},
-      { title: 'Traffic Updates', component: 'UserupdatesPage', icon: 'car'},
-      { title: 'User Updates', component: 'PeopleupdatesPage', icon: 'contact'},
-      // { title: 'My Trips', component: 'SearchPage', icon: 'pin'},
-      { title: 'Incidents Nearby', component: 'CodePage', icon: 'warning'},
+    //  { title: 'Traffic Updates', component: 'UserupdatesPage', icon: 'car'},
+      // { title: 'User Updates', component: 'PeopleupdatesPage', icon: 'contact'},
+      // // { title: 'My Trips', component: 'SearchPage', icon: 'pin'},
+       { title: 'Incidents Nearby', component: 'CodePage', icon: 'warning'},
       // { title: 'Notifications', component: 'CardsPage', icon: 'notifications'},
-      { title: 'Talk', component: 'FeedbackPage', icon: 'chatbubbles' },
+      { title: 'Feedback', component: 'FeedbackPage', icon: 'chatbubbles' },
       { title: 'Settings', component: 'SettingsPage', icon: 'settings'},
       { title: 'About', component: 'ContactPage', icon: 'contact'}
 

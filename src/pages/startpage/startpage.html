@@ -9,7 +9,7 @@
   <ion-navbar color="appcolor">
   <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+  </button>
 
 
 
@@ -24,63 +24,87 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content class="masters">
 
 
+ <ion-card >
 
-<!-- design of homepage -->
-<ion-card >
-  <!-- <ion-list>
-    <ion-item>
-      <ion-input (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="Where are you going?" [(ngModel)]="End"></ion-input>
-    </ion-item>
-  </ion-list> -->
- <ion-grid>
-<ion-row >
+  <ion-grid>
+ <ion-row >
 
-<ion-col>
-<ion-input  (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="From"  id="destination-input" floating placeholder="From " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input>
+ <ion-col>
+ <!-- <ion-input  (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="From"  id="destination-input" floating placeholder="From " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input> -->
+ <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="Froo " [(ngModel)]="Start" [(ngModel)]="start" name="start"></ion-input>
 
-</ion-col>
+ </ion-col>
 
-<ion-col>
-  <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
+ <ion-col>
+   <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
 
-</ion-col>
+ </ion-col>
 
-
-
-
-      <!-- <button ion-button icon-only (click)="presentToast()" (click)="saveTrip()"><ion-icon name="add-circle" ></ion-icon></button> -->
-
-
-</ion-row>
-
-</ion-grid>
-</ion-card>
-<div #map  id="map"></div>
-<div id="right-panel">
-  <p><span id="total"></span></p>
-</div>
+ <ion-col>
+<button ion-fab mini color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
+ </ion-col>
 
 
 
 
 
 
+ </ion-row>
 
-<!-- end of homepage design-->
+ </ion-grid>
+ </ion-card>
+ <div #map  id="map"></div>
 
-<ion-fab bottom left>
-    <button ion-fab color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
+ <div id="right-panel">
 
-  </ion-fab>
+   <p><span id="total"></span></p>
+
+ </div>
 
 
 
-<!-- <ion-fab bottom right>
-    <button ion-fab color="appcolor" (click)="openModal()" (click)="calculateAndDisplayRoute()" ><ion-icon name="walk"></ion-icon></button>
 
-  </ion-fab> -->
+
+
+
+ <!-- end of homepage design-->
+
+ <ion-fab bottom left>
+     <button ion-fab color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
+
+   </ion-fab>
+
+
+
+
+  <!-- <ng-template #phForm>
+
+    <form #phoneForm="ngForm" (ngSubmit)="sendCode(phoneForm)">
+      <ion-item>
+        <ion-label floating>Phone number</ion-label>
+        <ion-input type="tel" name="phoneNumber" [(ngModel)]="phoneNumber"></ion-input>
+
+      </ion-item>
+      <button ion-button full type="submit" >Send Code</button>
+
+    </form>
+    <div id="re-container"></div>
+  </ng-template> -->
+
+
+
+<!-- accepting phone number form here -->
+
+
+
+
+
+<!-- accepting phone number form here -->
+
+
+
 
 </ion-content>

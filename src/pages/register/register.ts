@@ -34,6 +34,7 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
+
   openLoginPage()
   {
     this.navCtrl.push(EnterPage);
@@ -53,8 +54,9 @@ alert(message: string)
   {
     this.fire.auth.createUserWithEmailAndPassword(this.user.value,this.password.value)
     .then(data => {
+      this.navCtrl.push('TabsPage');
       console.log('got data', data);
-      this.alert('Thanks for Registering!')
+      this.alert('Registering!.....')
     })
     .catch(err => {
        console.log('got an error',err);

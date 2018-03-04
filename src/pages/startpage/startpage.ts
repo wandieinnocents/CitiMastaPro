@@ -1,8 +1,10 @@
 import { Component,ViewChild, ElementRef} from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController,Platform } from 'ionic-angular';
 import { AutoPage } from '../auto/auto';
 import { TabsPage } from '../tabs/tabs';
 import { ModalPage } from '../modal/modal';
+// import { VerifyPage } from '../../pages/verify/verify';
+import { LoginverfyPage } from '../../pages/loginverfy/loginverfy';
 
 
 import { Tab1Root } from '../pages';
@@ -11,7 +13,14 @@ import { Tab3Root } from '../pages';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ToastController } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
+
+import { AngularFireAuth } from  'angularfire2/auth';
+import { GoogleMaps,GoogleMap } from '@ionic-native/google-maps';
+
 declare var google;
+
+
+  import * as firebase from 'firebase';
 
 /**
  * Generated class for the StartpagePage page.
@@ -26,6 +35,11 @@ declare var google;
   templateUrl: 'startpage.html',
 })
 export class StartpagePage {
+  location: any;
+  //gmLocation: {lat: number, lng: number} = {lat: 0, lng: 0};
+
+  phoneNumber: any = '';
+
   latLng: string;
 
    address:any;
@@ -34,19 +48,38 @@ export class StartpagePage {
   MyLocation: any;
   data = {}
 
+
   //adding current location declarations
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+
+//  map: any;
+  map: GoogleMap;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public geolocation: Geolocation,
+   private  platform: Platform,
+    private geolocation: Geolocation,
+      public afAuth: AngularFireAuth,
+      //private _googleMaps: GoogleMaps,
     private modalCtrl: ModalController,
     public toastCtrl: ToastController,
 
     public http: Http) {
 
-      //pick current user mail
+    //  this.onLocateUser();
+
+      // this.platform.ready().then(() => {
+      //
+      //   this.geolocation.getCurrentPosition().then(resp => {
+      //     console.log(resp.coords.latitude);
+      //     console.log(resp.coords.latitude);
+      //   }).catch(() => {
+      //     console.log("Error to get location ");
+      //   });
+      // });
+      //
+
+
 
 
     //autocomplete
@@ -56,6 +89,23 @@ export class StartpagePage {
 
   }
 
+  // onLocateUser() {
+  //     this.geolocation.getCurrentPosition()
+  //       .then(
+  //         (location) => {
+  //          // console.log('position gotten: long:',location.coords.longitude,' lat:',location.coords.latitude);
+  //           this.location = location;
+  //           this.gmLocation.lat = location.coords.latitude;
+  //           this.gmLocation.lng = location.coords.longitude;
+  //         }
+  //       )
+  //       .catch(
+  //         (error) => {
+  //           console.log('Error getting location', error);
+  //         }
+  //       )
+  //
+  //   }
 
   //modal  page
 
@@ -66,7 +116,9 @@ export class StartpagePage {
     modalPage.present();
 
    }
+   //new autocomplete
 
+//geolocation on lauch
 
 
 //map re-generation
@@ -125,7 +177,19 @@ export class StartpagePage {
 
 
 
+sendCode(form)
+{
+  this.afAuth.auth.signInWithPhoneNumber(form.value.phoneNumber,new firebase.auth.RecaptchaVerifier
+    ('re-container ',{
+      'size':'invisible'
+    })).then(data => {
+      this.navCtrl.push('LoginverfyPage',{ confirmationResult: data })
+    }).catch(err =>  {
+      console.log(err);
+    })
 
+
+}
 
 
 
@@ -196,44 +260,86 @@ presentToast() {
  ionViewDidLoad(){
 
     this.loadMap();
+//  this.initMap();
 
 
   }
 
 // ngAfterViewInit() {
-//     console.log("afterinit");
-//     setTimeout(() => {
-//       console.log(this.abc.nativeElement.innerText);
-//     }, 1000);
+//     this.initMap();
+//
+//   }
+//   initMap(){
+//     let elemenet = this.mapElement.nativeElement;
+//     this.map = this._googleMaps.create(elemenet);
 //   }
 
 
 
 
 
-
   //
+
+//   addInfoWindow(marker, content){
+//
+//   let infoWindow = new google.maps.InfoWindow({
+//     content: content
+//   });
+//
+//   google.maps.event.addListener(marker, 'click', () => {
+//     infoWindow.open(this.map, marker);
+//   });
+//
+// }
+
   loadMap(){
 
       this.geolocation.getCurrentPosition().then((position) => {
 
+
+
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //  let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+      // let trafficLayer = new google.maps.TrafficLayer();
+      //   trafficLayer.setMap(map);
+
+
+
+
+      // let marker = new google.maps.Marker({
+      //   map: this.map,
+      //   animation: google.maps.Animation.DROP,
+      //   position: latLng
+      // });
+      //
+      //  let content = "<h4>Information!</h4>";
+      //
+      // this.addInfoWindow(marker, content);
+
+
+
 
       let mapOptions = {
         center: latLng,
-        zoom: 10,
+        zoom: 17,
+
         mapTypeId: google.maps.MapTypeId.ROADMAP
+        //mapTypeId: google.maps.MapTypeId.ROADMAP
+
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-
+      //console.log(position.coords.latitude);
+      console.log('position gotten now: long:',position.coords.latitude,' lat:',position.coords.longitude);
 
     }, (err) => {
       console.log(err);
     });
 
   }
+
+
 //adding markers
 // addMarker(){
 //
@@ -273,12 +379,14 @@ presentToast() {
           draggable: true,
           map: map,
           panel: document.getElementById('right-panel')
+
         });
 
 
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: 41.85, lng: -87.65}
+          zoom: 16,
+          // center: {lat: 41.85, lng: -87.65}
+          center: {lat: 0.347596, lng: 32.582520}
         });
 
         directionsDisplay.setMap(map);

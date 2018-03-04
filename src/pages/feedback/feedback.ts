@@ -28,8 +28,8 @@ export class FeedbackPage {
 
   data = {}
   first_name: string = '';
-  last_name: string = '';
-  email: string = '';
+  // last_name: string = '';
+  // email: string = '';
   contact: string = '';
   location: string = '';
   description: string = '';
@@ -78,8 +78,8 @@ postFeedback()
 
 
                 first_name :this.first_name,
-                last_name  :this.last_name,
-                email      :this.email,
+                // last_name  :this.last_name,
+                // email      :this.email,
                 contact    :this.contact,
                 location   :this.location,
                 description:this.description

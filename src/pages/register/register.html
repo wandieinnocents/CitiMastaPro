@@ -7,31 +7,39 @@
 <ion-header>
 
   <ion-navbar color="appcolor">
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content >
-  <ion-list>
+  <br><br><br>
+  <ion-list >
 
-    <ion-item>
-      <ion-label floating>Username</ion-label>
+    <ion-item >
+      <ion-label floating>Email</ion-label>
       <ion-input type="text"  #username></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item >
       <ion-label floating>Password</ion-label>
       <ion-input type="password"  #password></ion-input>
     </ion-item>
 
-      <div padding>
-      <button ion-button color="primary" full  (click)="registerUser()">Signup</button>
-    </div>
-    <div padding>
-    <button ion-button color="danger" full  (click)="openLoginPage()">Login</button>
-  </div>
+    <ion-row>
+      <ion-col>
+        <button  class="master" ion-button round outline color="welcomewhite" (click)="registerUser()">Register<ion-icon name="arrow-forward"></ion-icon></button>
+      </ion-col>
+
+      <ion-col>
+        <button ion-button round outline  color="welcomewhite" (click)="openLoginPage()">Login<ion-icon name="arrow-forward"></ion-icon></button>
+
+      </ion-col>
+
+    </ion-row>
+    <hr>
+
 
 
 

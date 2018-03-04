@@ -37,8 +37,11 @@ import { AutoPage } from '../pages/auto/auto';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
 
+// import { LoginverfyPage } from '../pages/loginverfy/loginverfy';
 
+  import * as firebase from 'firebase';
 
 
 
@@ -51,6 +54,9 @@ export const firebaseAuth = {
   storageBucket: "trafficapp-3cee2.appspot.com",
   messagingSenderId: "69157020230"
 };
+
+firebase.initializeApp(firebaseAuth);
+
 
 
 
@@ -83,7 +89,8 @@ export function provideSettings(storage: Storage) {
     TrafficupdatePage,
     AutoPage,
     EnterPage,
-    LoggedinPage
+    LoggedinPage,
+    // LoginverfyPage
     //ModalPage,
     // PeopleupdatesPage,
   //TabsPage
@@ -111,7 +118,8 @@ export function provideSettings(storage: Storage) {
     TrafficupdatePage,
     AutoPage,
     EnterPage,
-    LoggedinPage
+    LoggedinPage,
+  //  LoginverfyPage
     //ModalPage,
     // PeopleupdatesPage,
 
@@ -130,7 +138,7 @@ export function provideSettings(storage: Storage) {
     BackgroundMode,
     TripsPage,
     StatusBar,
-
+    GoogleMaps,
     Push,
     SocialSharing,
     Geolocation,
