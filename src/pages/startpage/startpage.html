@@ -32,19 +32,19 @@
   <ion-grid>
  <ion-row >
 
- <ion-col>
+ <!-- <ion-col> -->
  <!-- <ion-input  (click)="showAddressModal()"  [(ngModel)]="address.place" type="text" placeholder="From"  id="destination-input" floating placeholder="From " [(ngModel)]="Start" [(ngModel)]="destination" name="destination"></ion-input> -->
- <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="Froo " [(ngModel)]="Start" [(ngModel)]="start" name="start"></ion-input>
+ <!-- <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="Froo " [(ngModel)]="Start" [(ngModel)]="start" name="start"></ion-input>
+
+ </ion-col> -->
+
+ <ion-col col-9>
+   <ion-input type="text"   (click)="showAddressModal()"  [(ngModel)]="address.place" placeholder="From" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
 
  </ion-col>
 
- <ion-col>
-   <ion-input type="text"   type="text" placeholder="From" id="destination-input" floating placeholder="To " [(ngModel)]="End" [(ngModel)]="destination" name="destination"></ion-input>
-
- </ion-col>
-
- <ion-col>
-<button ion-fab mini color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
+ <ion-col col-3>
+<button ion-fab mini color="appcolor" (click)="calculateAndDisplayRoute()">GO</button>
  </ion-col>
 
 
@@ -72,10 +72,10 @@
 
  <!-- end of homepage design-->
 
- <ion-fab bottom left>
+ <!-- <ion-fab bottom left>
      <button ion-fab color="appcolor" (click)="calculateAndDisplayRoute()"><ion-icon name="navigate"></ion-icon></button>
 
-   </ion-fab>
+   </ion-fab> -->
 
 
 

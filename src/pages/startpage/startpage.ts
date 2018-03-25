@@ -1,5 +1,5 @@
 import { Component,ViewChild, ElementRef} from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController,Platform,LoadingController } from 'ionic-angular';
 import { AutoPage } from '../auto/auto';
 import { TabsPage } from '../tabs/tabs';
 import { ModalPage } from '../modal/modal';
@@ -41,11 +41,12 @@ export class StartpagePage {
   phoneNumber: any = '';
 
   latLng: string;
+  marker: any;
 
    address:any;
 	Start: any ;
 	End: any = '';
-  MyLocation: any;
+  MyLocation: any = '';
   data = {}
 
 
@@ -63,8 +64,10 @@ export class StartpagePage {
       //private _googleMaps: GoogleMaps,
     private modalCtrl: ModalController,
     public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
 
     public http: Http) {
+
 
     //  this.onLocateUser();
 
@@ -88,6 +91,142 @@ export class StartpagePage {
     };
 
   }
+
+  ionViewDidLoad(){
+
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 7000
+    });
+    loader.present();
+
+    this.loadMap();
+
+   }
+
+
+   loadMap(){
+
+       this.geolocation.getCurrentPosition().then((position) => {
+
+
+
+       var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+
+
+
+       let mapOptions = {
+         center: latLng,
+         zoom: 16,
+
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+         //mapTypeId: google.maps.MapTypeId.ROADMAP
+
+       }
+
+
+
+       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+       this.marker = new google.maps.Marker({
+       map: this.map,
+       position: latLng ,  //here in marker set the center position
+       //label:"Your Here ",
+       animation: google.maps.Animation.DROP,
+       icon: ''
+     });
+
+       //console.log(position.coords.latitude);
+       console.log('position gotten now: long:',position.coords.latitude,' lat:',position.coords.longitude);
+
+     }, (err) => {
+       console.log(err);
+     });
+
+   }
+
+
+     //calculate route function
+      calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+      		//initialise map
+         //street view variable panaroma
+
+
+         let that = this;
+      		var directionsService = new google.maps.DirectionsService;
+           var directionsDisplay = new google.maps.DirectionsRenderer({
+             draggable: true,
+             map: map,
+             panel: document.getElementById('right-panel')
+
+           });
+
+
+           var map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 16,
+             // center: {lat: 41.85, lng: -87.65}
+             center: {lat: 0.347596, lng: 32.582520}
+           });
+
+           directionsDisplay.setMap(map);
+           directionsDisplay.addListener('directions_changed', function() {
+             // computeTotalDistance(directionsDisplay.getDirections());
+           });
+
+
+
+            //pick the current location from here
+
+            this.geolocation.getCurrentPosition().then((position) => {
+
+            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+
+
+            let mapOptions = {
+              center: latLng,
+              zoom: 16,
+
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+              //mapTypeId: google.maps.MapTypeId.ROADMAP
+
+            }
+
+
+            this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+            //picking start origin
+            // this.MyLocation = new google.maps.LatLng(latLng);
+            this.MyLocation = latLng;
+
+            //console.log(position.coords.latitude);
+            console.log('position gotten distance now: long:',position.coords.latitude,' lat:',position.coords.longitude);
+
+           });
+
+          //end of current location code here
+
+
+           //show street view
+
+
+           //end of init map function
+           directionsService.route({
+             origin: this.MyLocation,
+             destination: this.End,
+             travelMode: 'DRIVING',
+             avoidTolls: true,
+           }, function(response, status) {
+             if (status === 'OK') {
+               directionsDisplay.setDirections(response);
+             } else {
+               window.alert('Directions request failed due to ' + status);
+             }
+           });
+
+
+         }
 
   // onLocateUser() {
   //     this.geolocation.getCurrentPosition()
@@ -257,87 +396,7 @@ presentToast() {
 }
 
 //load map current location
- ionViewDidLoad(){
 
-    this.loadMap();
-//  this.initMap();
-
-
-  }
-
-// ngAfterViewInit() {
-//     this.initMap();
-//
-//   }
-//   initMap(){
-//     let elemenet = this.mapElement.nativeElement;
-//     this.map = this._googleMaps.create(elemenet);
-//   }
-
-
-
-
-
-  //
-
-//   addInfoWindow(marker, content){
-//
-//   let infoWindow = new google.maps.InfoWindow({
-//     content: content
-//   });
-//
-//   google.maps.event.addListener(marker, 'click', () => {
-//     infoWindow.open(this.map, marker);
-//   });
-//
-// }
-
-  loadMap(){
-
-      this.geolocation.getCurrentPosition().then((position) => {
-
-
-
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //  let latLng = new google.maps.LatLng(-34.9290, 138.6010);
-      // let trafficLayer = new google.maps.TrafficLayer();
-      //   trafficLayer.setMap(map);
-
-
-
-
-      // let marker = new google.maps.Marker({
-      //   map: this.map,
-      //   animation: google.maps.Animation.DROP,
-      //   position: latLng
-      // });
-      //
-      //  let content = "<h4>Information!</h4>";
-      //
-      // this.addInfoWindow(marker, content);
-
-
-
-
-      let mapOptions = {
-        center: latLng,
-        zoom: 17,
-
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-        //mapTypeId: google.maps.MapTypeId.ROADMAP
-
-      }
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-      //console.log(position.coords.latitude);
-      console.log('position gotten now: long:',position.coords.latitude,' lat:',position.coords.longitude);
-
-    }, (err) => {
-      console.log(err);
-    });
-
-  }
 
 
 //adding markers
@@ -368,51 +427,6 @@ presentToast() {
 // }
 
 
-  //calculate route function
-   calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
-   		//initialise map
-      //street view variable panaroma
-
-   		var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer({
-          draggable: true,
-          map: map,
-          panel: document.getElementById('right-panel')
-
-        });
-
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
-          // center: {lat: 41.85, lng: -87.65}
-          center: {lat: 0.347596, lng: 32.582520}
-        });
-
-        directionsDisplay.setMap(map);
-        directionsDisplay.addListener('directions_changed', function() {
-          // computeTotalDistance(directionsDisplay.getDirections());
-        });
-
-        //show street view
-
-
-        //end of init map function
-        directionsService.route({
-          origin: this.Start,
-          destination: this.End,
-          travelMode: 'DRIVING',
-          avoidTolls: true,
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-
-
-      }
 
 
 
